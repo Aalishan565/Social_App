@@ -1,5 +1,6 @@
 package com.yasma.presenters
 
-interface PostPresenter {
+interface PostFragmentPresenter {
+
     fun getPostsFromApi()
 }

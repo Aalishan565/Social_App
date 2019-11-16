@@ -1,6 +1,6 @@
 package com.yasma.presenters
 
-interface AlbumPresenter {
+interface AlbumFragmentPresenter {
 
     fun getAlbumsFromApi()
 }

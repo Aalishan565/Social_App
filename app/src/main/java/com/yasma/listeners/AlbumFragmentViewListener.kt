@@ -2,7 +2,7 @@ package com.yasma.listeners
 
 import com.yasma.dto.Album
 
-interface AlbumViewListener {
+interface AlbumFragmentViewListener {
 
     fun successResponse(body: List<Album>?)
 

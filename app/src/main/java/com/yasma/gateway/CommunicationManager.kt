@@ -25,6 +25,7 @@ class CommunicationManager {
         var api: RetrofitAPI? = null
         val url: String?
         try {
+            //Need to put in build config file
             url = "https://jsonplaceholder.typicode.com/"
             if (null != url) {
                 val okHttpClient: OkHttpClient = OkHttpClient.Builder()

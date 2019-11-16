@@ -1,17 +1,14 @@
 package com.yasma.presenterImplModels
 
 import com.yasma.dto.Album
-import com.yasma.dto.Post
 import com.yasma.gateway.CommunicationManager
-import com.yasma.listeners.AlbumViewListener
-import com.yasma.listeners.PostViewListener
-import com.yasma.presenters.AlbumPresenter
-import com.yasma.presenters.PostPresenter
+import com.yasma.listeners.AlbumFragmentViewListener
+import com.yasma.presenters.AlbumFragmentPresenter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AlbumPresenterImpl(private val albumViewListener: AlbumViewListener) : AlbumPresenter {
+class AlbumFragmentFragmentPresenterImpl(private val albumFragmentViewListener: AlbumFragmentViewListener) : AlbumFragmentPresenter {
 
     override fun getAlbumsFromApi() {
 
@@ -20,11 +17,11 @@ class AlbumPresenterImpl(private val albumViewListener: AlbumViewListener) : Alb
         call?.enqueue(object : Callback<List<Album>> {
 
             override fun onResponse(call: Call<List<Album>>, response: Response<List<Album>>?) {
-                albumViewListener.successResponse(response?.body())
+                albumFragmentViewListener.successResponse(response?.body())
             }
 
             override fun onFailure(call: Call<List<Album>>, t: Throwable) {
-                albumViewListener.failureResponse(t.toString())
+                albumFragmentViewListener.failureResponse(t.toString())
             }
         })
     }
