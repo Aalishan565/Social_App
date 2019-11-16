@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yasma.R
 import com.yasma.dto.Album
 import com.yasma.listeners.AlbumFragmentViewListener
-import com.yasma.presenterImplModels.AlbumFragmentFragmentPresenterImpl
+import com.yasma.presenterImplModels.AlbumFragmentPresenterImpl
 import com.yasma.view.adapters.AlbumAdapter
 import kotlinx.android.synthetic.main.fragment_album.*
 import kotlinx.android.synthetic.main.fragment_post.progress_circular
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_post.progress_circular
 /**
  * A simple [Fragment] subclass.
  */
-class AlbumFragmentFragment : Fragment(), AlbumFragmentViewListener {
+class AlbumFragment : Fragment(), AlbumFragmentViewListener {
     private var listData: ArrayList<Album> = ArrayList()
 
     override fun onCreateView(
@@ -33,7 +33,7 @@ class AlbumFragmentFragment : Fragment(), AlbumFragmentViewListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         rvAlbum.layoutManager = LinearLayoutManager(activity)
-        val albumPresenter = AlbumFragmentFragmentPresenterImpl(this)
+        val albumPresenter = AlbumFragmentPresenterImpl(this)
         albumPresenter.getAlbumsFromApi()
         progress_circular.visibility = View.VISIBLE
     }

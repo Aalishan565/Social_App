@@ -8,7 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PostFragmentFragmentPresenterImpl(private val postFragmentViewListener: PostFragmentViewListener) : PostFragmentPresenter {
+class PostFragmentPresenterImpl(private val postFragmentViewListener: PostFragmentViewListener) : PostFragmentPresenter {
 
     override fun getPostsFromApi() {
 

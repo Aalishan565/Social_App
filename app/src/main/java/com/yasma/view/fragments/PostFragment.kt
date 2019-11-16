@@ -11,14 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yasma.R
 import com.yasma.dto.Post
 import com.yasma.listeners.PostFragmentViewListener
-import com.yasma.presenterImplModels.PostFragmentFragmentPresenterImpl
+import com.yasma.presenterImplModels.PostFragmentPresenterImpl
 import com.yasma.view.adapters.PostAdapter
 import kotlinx.android.synthetic.main.fragment_post.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class PostFragmentFragment : Fragment(), PostFragmentViewListener {
+class PostFragment : Fragment(), PostFragmentViewListener {
     private var listData: ArrayList<Post> = ArrayList()
 
     override fun onCreateView(
@@ -32,7 +32,7 @@ class PostFragmentFragment : Fragment(), PostFragmentViewListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         rvPost.layoutManager = LinearLayoutManager(activity)
-        val postPresenter = PostFragmentFragmentPresenterImpl(this)
+        val postPresenter = PostFragmentPresenterImpl(this)
         postPresenter.getPostsFromApi()
         progress_circular.visibility=View.VISIBLE
     }
