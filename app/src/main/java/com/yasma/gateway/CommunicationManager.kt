@@ -1,6 +1,7 @@
 package com.yasma.gateway
 
 import com.yasma.appUtils.MyAppConstant
+import com.yasma.dto.Album
 import com.yasma.dto.Post
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -49,6 +50,15 @@ class CommunicationManager {
     fun getPostListReq(): Call<List<Post>>? {
         return try {
             getRetrofitInstance()?.postResponse()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    fun getAlbumListReq(): Call<List<Album>>? {
+        return try {
+            getRetrofitInstance()?.albumResponse()
         } catch (e: Exception) {
             e.printStackTrace()
             null

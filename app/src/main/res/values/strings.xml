@@ -2,6 +2,7 @@
     <string name="app_name">Social Post App</string>
     <string name="main_activity_title">Social Posts</string>
     <string name="detail_activity_title">Post Detail</string>
+    <string name="album_detail_activity_title">Album Detail</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="post_fragment_title">POSTS</string>
