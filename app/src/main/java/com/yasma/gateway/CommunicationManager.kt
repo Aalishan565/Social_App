@@ -2,6 +2,7 @@ package com.yasma.gateway
 
 import com.yasma.appUtils.MyAppConstant
 import com.yasma.dto.Album
+import com.yasma.dto.AlbumDetail
 import com.yasma.dto.Post
 import com.yasma.dto.PostDetail
 import okhttp3.OkHttpClient
@@ -70,6 +71,14 @@ class CommunicationManager {
     fun getAlbumListReq(): Call<List<Album>>? {
         return try {
             getRetrofitInstance()?.albumResponse()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+    fun getAlbumDetailListReq(albumId: Int): Call<List<AlbumDetail>>? {
+        return try {
+            getRetrofitInstance()?.albumDetailResponse(albumId)
         } catch (e: Exception) {
             e.printStackTrace()
             null

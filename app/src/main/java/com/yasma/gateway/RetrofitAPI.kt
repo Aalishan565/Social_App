@@ -1,6 +1,7 @@
 package com.yasma.gateway
 
 import com.yasma.dto.Album
+import com.yasma.dto.AlbumDetail
 import com.yasma.dto.Post
 import com.yasma.dto.PostDetail
 import retrofit2.Call
@@ -17,4 +18,7 @@ interface RetrofitAPI {
 
     @GET("albums")
     fun albumResponse(): Call<List<Album>>
+
+    @GET("albums/{album_id}/photos")
+    fun albumDetailResponse(@Path("album_id") userId: Int): Call<List<AlbumDetail>>
 }

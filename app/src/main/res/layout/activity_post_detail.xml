@@ -16,7 +16,7 @@
 
     <include
         android:id="@+id/inc_title"
-        layout="@layout/row_item_albums"
+        layout="@layout/row_item_post"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"

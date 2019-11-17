@@ -15,7 +15,8 @@ import com.yasma.view.adapters.PostDetailAdapter
 import kotlinx.android.synthetic.main.activity_main.toolbar
 import kotlinx.android.synthetic.main.activity_post_detail.*
 import kotlinx.android.synthetic.main.fragment_post.progress_circular
-import kotlinx.android.synthetic.main.row_item_albums.*
+import kotlinx.android.synthetic.main.row_item_albums.tvTitle
+import kotlinx.android.synthetic.main.row_item_post.*
 
 class PostDetailActivity : AppCompatActivity(), PostDetailActivityViewListener {
 
@@ -28,15 +29,16 @@ class PostDetailActivity : AppCompatActivity(), PostDetailActivityViewListener {
         val bundle: Bundle? = intent.extras
         val post = bundle?.getParcelable<Post>(MyAppConstant.SINGLE_POST)
         tvTitle.text = post!!.title
+        tvBody.text = post.body
         rvPostDetail.layoutManager = LinearLayoutManager(this)
         val postDetailActivityPresenter = PostActivityDetailPresenterImpl(this)
-        post.id?.let { postDetailActivityPresenter.getPostDetailFromApi(it) }
+        post.id.let { postDetailActivityPresenter.getPostDetailFromApi(it) }
         progress_circular.visibility = View.VISIBLE
     }
 
     override fun successResponse(body: List<PostDetail>?) {
         progress_circular.visibility = View.GONE
-        var listData = body as ArrayList<PostDetail>
+        val listData = body as ArrayList<PostDetail>
         rvPostDetail.adapter = PostDetailAdapter(listData, this)
     }
 

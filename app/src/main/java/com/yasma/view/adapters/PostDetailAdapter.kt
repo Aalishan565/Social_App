@@ -38,7 +38,6 @@ class PostDetailAdapter(private val postList: List<PostDetail>, private val cont
         val tvName = view.tvName!!
         val tvEmail = view.tvEmail!!
         val tvBody = view.tvBody!!
-        val cardPost = view.cardPost!!
 
     }
 }
