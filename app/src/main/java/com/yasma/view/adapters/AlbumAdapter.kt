@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.row_item_post.view.*
 
 class AlbumAdapter(private val albumList: List<Album>, private val context: Context) :
     RecyclerView.Adapter<AlbumAdapter.ViewHolder>() {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(context).inflate(

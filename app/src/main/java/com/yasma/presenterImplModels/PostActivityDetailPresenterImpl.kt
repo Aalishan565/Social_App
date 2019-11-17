@@ -23,6 +23,7 @@ class PostActivityDetailPresenterImpl(private val postDetailActivityViewListener
             }
 
             override fun onFailure(call: Call<List<PostDetail>>, t: Throwable) {
+
                 postDetailActivityViewListener.failureResponse(t.toString())
             }
         })

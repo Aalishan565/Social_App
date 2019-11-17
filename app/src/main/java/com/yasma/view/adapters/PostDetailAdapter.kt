@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yasma.R
 import com.yasma.dto.PostDetail
-import kotlinx.android.synthetic.main.row_item_post.view.cardPost
 import kotlinx.android.synthetic.main.row_item_post.view.tvBody
 import kotlinx.android.synthetic.main.row_item_post_detail.view.*
 

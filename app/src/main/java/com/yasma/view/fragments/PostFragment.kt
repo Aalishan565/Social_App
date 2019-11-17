@@ -34,17 +34,17 @@ class PostFragment : Fragment(), PostFragmentViewListener {
         rvPost.layoutManager = LinearLayoutManager(activity)
         val postPresenter = PostFragmentPresenterImpl(this)
         postPresenter.getPostsFromApi()
-        progress_circular.visibility=View.VISIBLE
+        progress_circular.visibility = View.VISIBLE
     }
 
     override fun successResponse(body: List<Post>?) {
-        progress_circular.visibility=View.GONE
+        progress_circular.visibility = View.GONE
         listData = body as ArrayList<Post>
         rvPost.adapter = activity?.let { PostAdapter(listData, it) }
     }
 
     override fun failureResponse(message: String) {
-        progress_circular.visibility=View.GONE
+        progress_circular.visibility = View.GONE
         Toast.makeText(activity, "" + message, Toast.LENGTH_LONG).show()
     }
 

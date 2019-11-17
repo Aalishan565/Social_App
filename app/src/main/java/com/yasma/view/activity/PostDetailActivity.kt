@@ -20,9 +20,7 @@ import kotlinx.android.synthetic.main.row_item_post.*
 
 class PostDetailActivity : AppCompatActivity(), PostDetailActivityViewListener {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_detail)
         toolbar.title = getString(R.string.detail_activity_title)

@@ -76,6 +76,7 @@ class CommunicationManager {
             null
         }
     }
+
     fun getAlbumDetailListReq(albumId: Int): Call<List<AlbumDetail>>? {
         return try {
             getRetrofitInstance()?.albumDetailResponse(albumId)

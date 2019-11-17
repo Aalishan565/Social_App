@@ -17,10 +17,12 @@ class AlbumFragmentPresenterImpl(private val albumFragmentViewListener: AlbumFra
         call?.enqueue(object : Callback<List<Album>> {
 
             override fun onResponse(call: Call<List<Album>>, response: Response<List<Album>>?) {
+
                 albumFragmentViewListener.successResponse(response?.body())
             }
 
             override fun onFailure(call: Call<List<Album>>, t: Throwable) {
+
                 albumFragmentViewListener.failureResponse(t.toString())
             }
         })

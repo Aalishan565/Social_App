@@ -17,10 +17,12 @@ class PostFragmentPresenterImpl(private val postFragmentViewListener: PostFragme
         call?.enqueue(object : Callback<List<Post>> {
 
             override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>?) {
+
                 postFragmentViewListener.successResponse(response?.body())
             }
 
             override fun onFailure(call: Call<List<Post>>, t: Throwable) {
+
                 postFragmentViewListener.failureResponse(t.toString())
             }
         })

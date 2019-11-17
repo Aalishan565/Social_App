@@ -27,7 +27,6 @@ class AlbumDetailActivity : AppCompatActivity(), AlbumDetailActivityViewListener
         val bundle: Bundle? = intent.extras
         val album = bundle?.getParcelable<Album>(MyAppConstant.SINGLE_ALBUM)
         tvTitle.text = album!!.title
-
         rvPhotos.layoutManager = GridLayoutManager(this,2)
         val albumDetailActivityPresenter = AlbumDetailActivityPresenterImpl(this)
         albumDetailActivityPresenter.getAlbumDetailFromApi(album.id)

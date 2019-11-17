@@ -61,7 +61,6 @@ class AlbumDetailAdapter(private val albumList: List<AlbumDetail>, private val c
             .into(holder.ivPhoto)
     }
 
-
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ivPhoto = view.ivPhoto!!
         val progress_circular = view.progress_circular!!

@@ -10,7 +10,9 @@ import retrofit2.Response
 
 class AlbumDetailActivityPresenterImpl(private val albumDetailActivityViewListener: AlbumDetailActivityViewListener) :
     AlbumDetailActivityPresenter {
+
     override fun getAlbumDetailFromApi(albumId: Int) {
+
         val communicationManager = CommunicationManager().getInstance()
         val call = communicationManager.getAlbumDetailListReq(albumId)
         call?.enqueue(object : Callback<List<AlbumDetail>> {
@@ -23,6 +25,7 @@ class AlbumDetailActivityPresenterImpl(private val albumDetailActivityViewListen
             }
 
             override fun onFailure(call: Call<List<AlbumDetail>>, t: Throwable) {
+
                 albumDetailActivityViewListener.failureResponse(t.toString())
             }
         })
