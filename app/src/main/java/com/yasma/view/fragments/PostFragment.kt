@@ -10,9 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yasma.R
 import com.yasma.dto.Post
+import com.yasma.gateway.CommunicationManager
 import com.yasma.listeners.PostFragmentViewListener
 import com.yasma.presenterImplModels.PostFragmentPresenterImpl
 import com.yasma.view.adapters.PostAdapter
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_post.*
 
 /**
@@ -20,6 +23,7 @@ import kotlinx.android.synthetic.main.fragment_post.*
  */
 class PostFragment : Fragment(), PostFragmentViewListener {
     private var listData: ArrayList<Post> = ArrayList()
+    private var mCompositeDisposable: CompositeDisposable? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +35,7 @@ class PostFragment : Fragment(), PostFragmentViewListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        rvPost.layoutManager = LinearLayoutManager(activity)
+        rvPost.layoutManager = activity?.let { LinearLayoutManager(it) }
         val postPresenter = PostFragmentPresenterImpl(this)
         postPresenter.getPostsFromApi()
         progress_circular.visibility = View.VISIBLE

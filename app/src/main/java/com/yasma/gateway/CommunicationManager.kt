@@ -5,10 +5,13 @@ import com.yasma.dto.Album
 import com.yasma.dto.AlbumDetail
 import com.yasma.dto.Post
 import com.yasma.dto.PostDetail
+import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class CommunicationManager {
@@ -38,6 +41,7 @@ class CommunicationManager {
                 val retrofit = Retrofit.Builder()
                     .baseUrl(url)
                     .client(okHttpClient)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
                 api = retrofit.create(RetrofitAPI::class.java)
@@ -50,7 +54,7 @@ class CommunicationManager {
         return api
     }
 
-    fun getPostListReq(): Call<List<Post>>? {
+    fun getPostListReq(): Observable<List<Post>>? {
         return try {
             getRetrofitInstance()?.postResponse()
         } catch (e: Exception) {
@@ -59,7 +63,7 @@ class CommunicationManager {
         }
     }
 
-    fun getPostDetailListReq(postId: Int): Call<List<PostDetail>>? {
+    fun getPostDetailListReq(postId: Int): Observable<List<PostDetail>>? {
         return try {
             getRetrofitInstance()?.postDetailResponse(postId)
         } catch (e: Exception) {
@@ -68,7 +72,7 @@ class CommunicationManager {
         }
     }
 
-    fun getAlbumListReq(): Call<List<Album>>? {
+    fun getAlbumListReq(): Observable<List<Album>>? {
         return try {
             getRetrofitInstance()?.albumResponse()
         } catch (e: Exception) {
@@ -77,7 +81,7 @@ class CommunicationManager {
         }
     }
 
-    fun getAlbumDetailListReq(albumId: Int): Call<List<AlbumDetail>>? {
+    fun getAlbumDetailListReq(albumId: Int): Observable<List<AlbumDetail>>? {
         return try {
             getRetrofitInstance()?.albumDetailResponse(albumId)
         } catch (e: Exception) {

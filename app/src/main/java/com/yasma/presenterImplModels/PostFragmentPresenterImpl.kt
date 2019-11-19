@@ -4,27 +4,30 @@ import com.yasma.dto.Post
 import com.yasma.gateway.CommunicationManager
 import com.yasma.listeners.PostFragmentViewListener
 import com.yasma.presenters.PostFragmentPresenter
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
-class PostFragmentPresenterImpl(private val postFragmentViewListener: PostFragmentViewListener) : PostFragmentPresenter {
+class PostFragmentPresenterImpl(private val postFragmentViewListener: PostFragmentViewListener) :
+    PostFragmentPresenter {
 
     override fun getPostsFromApi() {
-
-        val communicationManager = CommunicationManager().getInstance()
-        val call = communicationManager.getPostListReq()
-        call?.enqueue(object : Callback<List<Post>> {
-
-            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>?) {
-
-                postFragmentViewListener.successResponse(response?.body())
+        var mCompositeDisposable = CompositeDisposable()
+        CommunicationManager().getInstance().getPostListReq()
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribeOn(Schedulers.io())?.subscribe(this::handleResponse, this::handleError)
+            ?.let {
+                mCompositeDisposable?.add(
+                    it
+                )
             }
+    }
 
-            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
+    private fun handleResponse(post: List<Post>) {
+        postFragmentViewListener.successResponse(post)
+    }
 
-                postFragmentViewListener.failureResponse(t.toString())
-            }
-        })
+    private fun handleError(error: Throwable) {
+        postFragmentViewListener.failureResponse(error.toString())
     }
 }
