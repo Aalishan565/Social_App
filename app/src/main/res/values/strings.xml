@@ -3,6 +3,7 @@
     <string name="main_activity_title">Social Posts</string>
     <string name="detail_activity_title">Post Comments</string>
     <string name="album_detail_activity_title">Album Detail</string>
+    <string name="user_detail_activity_title">User Detail</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="post_fragment_title">POSTS</string>
