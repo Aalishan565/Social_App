@@ -1,9 +1,6 @@
 package com.yasma.gateway
 
-import com.yasma.dto.Album
-import com.yasma.dto.AlbumDetail
-import com.yasma.dto.Post
-import com.yasma.dto.PostDetail
+import com.yasma.dto.*
 import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.http.GET
@@ -21,5 +18,8 @@ interface RetrofitAPI {
     fun albumResponse(): Observable<List<Album>>
 
     @GET("albums/{album_id}/photos")
-    fun albumDetailResponse(@Path("album_id") userId: Int): Observable<List<AlbumDetail>>
+    fun albumDetailResponse(@Path("album_id") albumId: Int): Observable<List<AlbumDetail>>
+
+    @GET("users/{user_id}")
+    fun userDetailResponse(@Path("user_id") userId: Int): Observable<User>
 }

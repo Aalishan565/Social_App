@@ -1,10 +1,7 @@
 package com.yasma.gateway
 
 import com.yasma.appUtils.MyAppConstant
-import com.yasma.dto.Album
-import com.yasma.dto.AlbumDetail
-import com.yasma.dto.Post
-import com.yasma.dto.PostDetail
+import com.yasma.dto.*
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -84,6 +81,14 @@ class CommunicationManager {
     fun getAlbumDetailListReq(albumId: Int): Observable<List<AlbumDetail>>? {
         return try {
             getRetrofitInstance()?.albumDetailResponse(albumId)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+    fun getUserDetailReq(userId: Int): Observable<User>? {
+        return try {
+            getRetrofitInstance()?.userDetailResponse(userId)
         } catch (e: Exception) {
             e.printStackTrace()
             null
