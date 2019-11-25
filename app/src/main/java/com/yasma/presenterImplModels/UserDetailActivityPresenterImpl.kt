@@ -11,8 +11,8 @@ import io.reactivex.schedulers.Schedulers
 
 class UserDetailActivityPresenterImpl(private val userDetailActivityViewListener: UserDetailActivityViewListener) :
     UserDetailActivityPresenter {
+    private var mCompositeDisposable = CompositeDisposable()
     override fun callUserDetailApi(userId: Int) {
-        var mCompositeDisposable = CompositeDisposable()
         CommunicationManager().getInstance().getUserDetailReq(userId)
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribeOn(Schedulers.io())?.subscribe(this::handleResponse, this::handleError)
@@ -24,11 +24,20 @@ class UserDetailActivityPresenterImpl(private val userDetailActivityViewListener
 
     }
 
+    fun disposeCompositeDisposable() {
+        if (mCompositeDisposable != null && !mCompositeDisposable.isDisposed) {
+            mCompositeDisposable.dispose()
+        }
+
+    }
+
     private fun handleResponse(userDetail: User) {
         userDetailActivityViewListener.successResponse(userDetail)
+        disposeCompositeDisposable()
     }
 
     private fun handleError(error: Throwable) {
         userDetailActivityViewListener.failureResponse(error.toString())
+        disposeCompositeDisposable()
     }
 }

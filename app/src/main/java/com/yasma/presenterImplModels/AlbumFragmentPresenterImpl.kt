@@ -14,9 +14,9 @@ import retrofit2.Response
 
 class AlbumFragmentPresenterImpl(private val albumFragmentViewListener: AlbumFragmentViewListener) :
     AlbumFragmentPresenter {
-
+    var mCompositeDisposable = CompositeDisposable()
     override fun getAlbumsFromApi() {
-        var mCompositeDisposable = CompositeDisposable()
+
         CommunicationManager().getInstance().getAlbumListReq()
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribeOn(Schedulers.io())?.subscribe(this::handleResponse, this::handleError)
@@ -27,11 +27,20 @@ class AlbumFragmentPresenterImpl(private val albumFragmentViewListener: AlbumFra
             }
     }
 
+    fun disposeCompositeDisposable() {
+        if (mCompositeDisposable != null && !mCompositeDisposable.isDisposed) {
+            mCompositeDisposable.dispose()
+        }
+
+    }
+
     private fun handleResponse(album: List<Album>) {
         albumFragmentViewListener.successResponse(album)
+        disposeCompositeDisposable()
     }
 
     private fun handleError(error: Throwable) {
         albumFragmentViewListener.failureResponse(error.toString())
+        disposeCompositeDisposable()
     }
 }

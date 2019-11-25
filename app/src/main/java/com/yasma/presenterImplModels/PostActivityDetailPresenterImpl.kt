@@ -13,9 +13,10 @@ import retrofit2.Response
 
 class PostActivityDetailPresenterImpl(private val postDetailActivityViewListener: PostDetailActivityViewListener) :
     PostDetailActivityPresenter {
+    var mCompositeDisposable = CompositeDisposable()
     override fun getPostDetailFromApi(postId: Int) {
 
-        var mCompositeDisposable = CompositeDisposable()
+
         CommunicationManager().getInstance().getPostDetailListReq(postId)
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribeOn(Schedulers.io())?.subscribe(this::handleResponse, this::handleError)
@@ -26,11 +27,20 @@ class PostActivityDetailPresenterImpl(private val postDetailActivityViewListener
             }
     }
 
+    fun disposeCompositeDisposable() {
+        if (mCompositeDisposable != null && !mCompositeDisposable.isDisposed) {
+            mCompositeDisposable.dispose()
+        }
+
+    }
+
     private fun handleResponse(post: List<PostDetail>) {
         postDetailActivityViewListener.successResponse(post)
+        disposeCompositeDisposable()
     }
 
     private fun handleError(error: Throwable) {
         postDetailActivityViewListener.failureResponse(error.toString())
+        disposeCompositeDisposable()
     }
 }

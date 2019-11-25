@@ -14,10 +14,10 @@ import retrofit2.Response
 
 class AlbumDetailActivityPresenterImpl(private val albumDetailActivityViewListener: AlbumDetailActivityViewListener) :
     AlbumDetailActivityPresenter {
-
+    var mCompositeDisposable = CompositeDisposable()
     override fun getAlbumDetailFromApi(albumId: Int) {
 
-        var mCompositeDisposable = CompositeDisposable()
+
         CommunicationManager().getInstance().getAlbumDetailListReq(albumId)
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribeOn(Schedulers.io())?.subscribe(this::handleResponse, this::handleError)
@@ -28,11 +28,20 @@ class AlbumDetailActivityPresenterImpl(private val albumDetailActivityViewListen
             }
     }
 
+    fun disposeCompositeDisposable() {
+        if (mCompositeDisposable != null && !mCompositeDisposable.isDisposed) {
+            mCompositeDisposable.dispose()
+        }
+
+    }
+
     private fun handleResponse(albumDetail: List<AlbumDetail>) {
         albumDetailActivityViewListener.successResponse(albumDetail)
+        disposeCompositeDisposable()
     }
 
     private fun handleError(error: Throwable) {
         albumDetailActivityViewListener.failureResponse(error.toString())
+        disposeCompositeDisposable()
     }
 }

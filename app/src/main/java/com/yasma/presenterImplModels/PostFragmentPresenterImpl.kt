@@ -10,9 +10,9 @@ import io.reactivex.schedulers.Schedulers
 
 class PostFragmentPresenterImpl(private val postFragmentViewListener: PostFragmentViewListener) :
     PostFragmentPresenter {
-
+    var mCompositeDisposable = CompositeDisposable()
     override fun getPostsFromApi() {
-        var mCompositeDisposable = CompositeDisposable()
+
         CommunicationManager().getInstance().getPostListReq()
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribeOn(Schedulers.io())?.subscribe(this::handleResponse, this::handleError)
@@ -25,9 +25,18 @@ class PostFragmentPresenterImpl(private val postFragmentViewListener: PostFragme
 
     private fun handleResponse(post: List<Post>) {
         postFragmentViewListener.successResponse(post)
+        disposeCompositeDisposable()
+    }
+
+    fun disposeCompositeDisposable() {
+        if (mCompositeDisposable != null && !mCompositeDisposable.isDisposed) {
+            mCompositeDisposable.dispose()
+        }
+
     }
 
     private fun handleError(error: Throwable) {
         postFragmentViewListener.failureResponse(error.toString())
+        disposeCompositeDisposable()
     }
 }
